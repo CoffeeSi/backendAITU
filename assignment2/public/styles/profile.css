@@ -1,0 +1,85 @@
+body {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    color: #e1e3e6;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    justify-content: center;
+    max-width: 800px;
+    padding-top: 32px;
+    background-color: #141414;
+}
+
+.card {
+    display: flex;
+    flex-direction: row;
+    border-radius: 24px;
+    gap: 48px;
+    max-width: 800px;
+    width: 100%;
+    background-color: #222222;
+    padding: 32px;
+    font-size: 20px;
+}
+
+.circle-pic {
+    border-radius: 96px;
+    width: 200px;
+    height: 200px;
+}
+
+#country-flag {
+    border-radius: 96px;
+    width: 64px;
+    height: 64px;
+    position:absolute;
+    transform: translate(148px,148px);
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#additional {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+}
+
+#address {
+    display: flex;
+    flex-direction: column;
+}
+
+#gen-button {
+    margin-top: 16px;
+    border-radius: 24px;
+    padding: 32px;
+    width: 864px;
+    font-size: 20px;
+    background: #71aaeb;
+    color: #141414;
+}
+
+#news-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.article {
+    display: flex;
+    flex-direction: row;
+    gap: 48px;
+    border: solid 1px #e1e3e633;
+    border-radius: 16px;
+    padding: 16px;
+}
+
+#article-pic {
+    border-radius: 32px;
+    width: 240px;
+    height: 200px;
+}
