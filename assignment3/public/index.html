@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>Blog</title>
+</head>
+<body>
+    <h2>Add new blog</h2>
+    <div class="form-container">
+        <form onsubmit="createBlog(); return false;">
+            <label for="title-inp">Title</label>
+            <input type="text" id="title-inp" required>
+            <label for="body-inp">Body</label>
+            <textarea name="body" id="body-inp" required></textarea>
+            <label for="author-inp">Author</label>
+            <input type="text" id="author-inp">
+            <input type="submit" class="submit-btn" value="Submit">
+        </form>
+    </div>
+    <div class="blogs">
+        <h2>Blogs</h2>
+    </div>
+    <script src="scripts/script.js"></script>
+</body>
+</html>
