@@ -7,7 +7,7 @@
     <title>Blog</title>
 </head>
 <body>
-    <h2>Add new blog</h2>
+    <h2 id="create-blog">Add new blog</h2>
     <div class="form-container">
         <form onsubmit="createBlog(); return false;">
             <label for="title-inp">Title</label>
@@ -16,12 +16,12 @@
             <textarea name="body" id="body-inp" required></textarea>
             <label for="author-inp">Author</label>
             <input type="text" id="author-inp">
+            <div class="error-message"></div>
             <input type="submit" class="submit-btn" value="Submit">
         </form>
     </div>
-    <div class="blogs">
-        <h2>Blogs</h2>
-    </div>
+    <h2>Blogs</h2>
+    <div class="blogs"></div>
     <script src="scripts/script.js"></script>
 </body>
 </html>

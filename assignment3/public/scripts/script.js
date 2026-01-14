@@ -15,7 +15,7 @@ async function createBlog() {
 }
 
 async function updateBlog(id) {
-    await fetch(`/blogs/${id}`, {
+    const response = await fetch(`/blogs/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -26,6 +26,13 @@ async function updateBlog(id) {
             author: document.getElementById('author-inp').value
         })
     });
+    if (!response.ok) {
+        const errorData = await response.json();
+        const errorDiv = document.querySelector('.error-message');
+        errorDiv.innerText = errorData.message;
+        document.body.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+    }
     location.reload();
 }
 
@@ -39,13 +46,9 @@ async function deleteBlog(id) {
 async function fetchBlogs() {
     try {
         const response = await (await fetch('/blogs')).json();
-        console.log(response.length);
-
         const blogs = document.querySelector('.blogs');
 
         response.forEach(blog => {
-            console.log(blog);
-
             const blogHtml = `
                 <div class="card">
                     <h2 class="title">${blog.title}</h2>
@@ -61,7 +64,7 @@ async function fetchBlogs() {
                 </div>
             `;
             blogs.innerHTML += blogHtml;
-    });
+        });
     } catch (error) {
         console.error(error);
     }

@@ -55,11 +55,8 @@ app.put('/blogs/:id', async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(400).send({ message: 'Invalid blog ID' });
     }
-    if (req.body.title == '') {
-        req.body.title = undefined;
-    }
-    if (req.body.body == '') {
-        req.body.body = undefined;
+    if (!req.body.title || !req.body.body) {
+        return res.status(400).send({ message: 'Title and body are required' });
     }
     if (req.body.author === '') {
         req.body.author = 'Anonymous';
