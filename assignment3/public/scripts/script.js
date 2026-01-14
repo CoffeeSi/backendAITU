@@ -1,6 +1,12 @@
 
+const form = document.getElementById('blog-form');
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    await createBlog();
+});
+
 async function createBlog() {
-    await fetch('/blogs', {
+    const response = await fetch('/blogs', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -11,6 +17,14 @@ async function createBlog() {
             author: document.getElementById('author-inp').value
         })
     });
+    if (!response.ok) {
+        const errorData = await response.json();
+        const errorDiv = document.querySelector('.error-message');
+        errorDiv.innerText = errorData.message;
+        document.body.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+    }
+    form.reset();
     location.reload();
 }
 
@@ -33,6 +47,7 @@ async function updateBlog(id) {
         document.body.scrollIntoView({ behavior: 'smooth', block: 'start' });
         return;
     }
+    form.reset();
     location.reload();
 }
 
