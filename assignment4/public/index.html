@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forecast Measurements</title>
+</head>
+<body>
+    <select id="field">
+        <option value="precipitation">Precipitation</option>
+        <option value="temp_max">Max temp</option>
+        <option value="temp_min">Min temp</option>
+        <option value="wind">Wind</option>
+    </select>
+    <input type="date" id="start">
+    <input type="date" id="end">
+    <button onclick="loadData()">Load</button><br>
+    <canvas id="chart" style="max-height: 80vh;"></canvas>
+    <div id="metrics"></div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        let chart;
+        async function loadData() {
+            const field = document.getElementById("field").value;
+            const start = document.getElementById("start").value;
+            const end = document.getElementById("end").value;
+
+            const response = await (await fetch(`/api/measurements?field=${field}&start_date=${start}&end_date=${end}`)).json();
+            const data = response.Response;
+
+            const labels = data.map(d => new Date(d.timestamp).toLocaleDateString());
+            const values = data.map(d => d[field]);
+
+            if (chart) chart.destroy();
+
+            chart = new Chart(document.getElementById("chart"), {
+                type: "bar",
+                data: {
+                    labels,
+                    datasets: [{ label: field, data: values }]
+                }
+            });
+
+            const metrics = await( await fetch(`/api/measurements/metrics?field=${field}&start_date=${start}&end_date=${end}`)).json();
+
+            document.getElementById("metrics").innerHTML = `
+                <h2>Metrics:</h2>
+                <p>Average: ${metrics.Response.avg.toFixed(2)}</p>
+                <p>Min: ${metrics.Response.min}</p>
+                <p>Max: ${metrics.Response.max}</p>
+                <p>Standard Deviation: ${metrics.Response.stdDev.toFixed(2)}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
